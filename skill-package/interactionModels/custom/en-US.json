@@ -19,6 +19,7 @@
           "name": "HelloWorldIntent",
           "slots": [],
           "samples": [
+            "stupid man",
             "hello",
             "how are you",
             "say hi world",
