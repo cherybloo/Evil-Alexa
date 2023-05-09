@@ -10,7 +10,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Welcome, you can say Hello or Help. Which would you like to try?';
+        const speakOutput = 'Hello there youngling slayer';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -25,11 +25,13 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Hello World!';
-
+        var options=["Hello there","Wasap bos","Having a good day bos?"];
+        var alexaAnswer1=options[Math.floor(Math.random()*options.length)];
+        var anothaOptions=["Got something else to say bos?","How are you today bos?","Are you lonely you little nerd?","I hope you got something else to say, unless I wait for nothing here"];
+        var alexaAnswer2=anothaOptions[Math.floor(Math.random()*anothaOptions)];
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .speak(alexaAnswer1)
+            .reprompt(alexaAnswer2)
             .getResponse();
     }
 };
