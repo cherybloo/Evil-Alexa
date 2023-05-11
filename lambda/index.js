@@ -4,7 +4,8 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
+const request = require('request');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -27,23 +28,23 @@ const HelloWorldIntentHandler = {
     },
     handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
-        var alexaOutput="";
+        var alexaOutput;
         if(userInput){
-            fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
-            .then(res=>res.json())
-            .then(out=>{
-                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+            request.get('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json',(err,response,data)=>{
+                console.log("error: ",err);
+                console.log("statusCode: ",response && response.statusCode);
+                var jsonObject = JSON.parse(data);
+                var jembut = jsonObject[Math.floor(Math.random()*Object.keys(jsonObject).length)]
                 console.log(jembut)
                 if(Object.keys(jembut).length>1){
                     console.log(jembut['questions']+jembut['answer']);
-                    alexaOutput+=jembut['questions']+jembut['answer'];
+                    alexaOutput=jembut['questions']+jembut['answer'];
                 }
                 else{
                     console.log(jembut['randomFact']);
-                    alexaOutput+=jembut['randomFact'];
-                } 
-    })
-    .catch(err=>console.log(err))
+                    alexaOutput=jembut['randomFact'];
+                }
+            })
         }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
