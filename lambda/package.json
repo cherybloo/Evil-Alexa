@@ -1,9 +1,4 @@
 {
-<<<<<<< HEAD
-  "type": "module",
-=======
-  "type":"module",
->>>>>>> 7829011ff03e15a7ead74c345eed00316409a491
   "name": "@amzn/hello-world",
   "version": "1.2.0",
   "description": "alexa utility for quickly building skills",
