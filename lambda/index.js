@@ -10,11 +10,18 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Hello there General Kenobi';
-
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
+            .addDelegateDirective({
+                name:'HelloWorldIntent',
+                confirmationStatus:'NONE',
+                slots:{
+                    action:{
+                        name:'action',
+                        confirmationStatus:'NONE',
+                        type:"ActionType",
+                    }
+                }
+            })
             .getResponse();
     }
 };
@@ -25,13 +32,22 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        var options=["Hello there","Wasap bos","Having a good day bos?"];
-        var alexaAnswer1=options[Math.floor(Math.random()*options.length)];
-        var anothaOptions=["Got something else to say bos?","How are you today bos?","Are you lonely you little nerd?","I hope you got something else to say, unless I wait for nothing here"];
-        var alexaAnswer2=anothaOptions[Math.floor(Math.random()*anothaOptions)];
+        var alexaOutput;
+        fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
+            .then(res=>res.json())
+            .then(out=>{
+                var choices = out[Math.floor(Math.random()*Object.keys(out).length)];
+                if(Object.keys(choices).length>1){
+                    var alexaQuestions=choices['questions'];
+                    var alexaAnswers=choices['answers'];
+                    alexaOutput=alexaQuestions+alexaAnswers;
+                }
+                else alexaOutput=choices['randomFact'];
+            }).catch(err=>console.log(err))
+        
         return handlerInput.responseBuilder
-            .speak(alexaAnswer1)
-            .reprompt(alexaAnswer2)
+            .speak(alexaOutput)
+            .reprompt("go suicide right now boss nobody love you")
             .getResponse();
     }
 };

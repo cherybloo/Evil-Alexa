@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "i am depressed",
+      "invocationName": "i am",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -17,15 +17,20 @@
         },
         {
           "name": "HelloWorldIntent",
-          "slots": [],
+          "slots": [
+            {
+              "name":"action",
+              "type":"ActionType",
+              "samples":[
+                "i am {action}",
+                "i want to commit {action}",
+                "{action}"
+              ]
+            }
+          ],
           "samples": [
-            "hello",
-            "how are you",
-            "say hi world",
-            "say hi",
-            "hi",
-            "say hello world",
-            "say hello"
+            "i am ",
+            ""
           ]
         },
         {
@@ -33,7 +38,28 @@
           "samples": []
         }
       ],
-      "types": []
+      "types": [
+        {
+          "name":"ActionType",
+          "values":[
+            {
+              "name":{
+                "value":"depressed"
+              }
+            },
+            {
+              "name":{
+                "value":"lonely"
+              }
+            },
+            {
+              "name":{
+                "value":"suicide"
+              }
+            }
+          ]
+        }
+      ]
     }
   },
   "version": "2"
