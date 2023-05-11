@@ -28,8 +28,8 @@ const HelloWorldIntentHandler = {
     handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
         var alexaOutput;
-        if(userInput) alexaOutput="now getting into it"
-        fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
+        if(userInput){
+            fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
             .then(res=>res.json())
             .then(out=>{
                 var choices = out[Math.floor(Math.random()*Object.keys(out).length)];
@@ -40,7 +40,7 @@ const HelloWorldIntentHandler = {
                 }
                 else alexaOutput=choices['randomFact'];
             }).catch(err=>console.log(err))
-        
+        }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
             .reprompt("go suicide right now boss nobody love you")
