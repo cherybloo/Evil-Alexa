@@ -10,18 +10,10 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
+        var speakOutput="this is success";
         return handlerInput.responseBuilder
-            .addDelegateDirective({
-                name:'HelloWorldIntent',
-                confirmationStatus:'NONE',
-                slots:{
-                    action:{
-                        name:'action',
-                        confirmationStatus:'NONE',
-                        type:"ActionType",
-                    }
-                }
-            })
+            .speak(speakOutput)
+            .reprompt()
             .getResponse();
     }
 };
