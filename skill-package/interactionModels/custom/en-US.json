@@ -20,17 +20,13 @@
           "slots": [
             {
               "name":"action",
-              "type":"ActionType",
-              "samples":[
-                "i am {action}",
-                "i want to commit {action}",
-                "{action}"
-              ]
+              "type":"ActionType"
             }
           ],
           "samples": [
-            "i am ",
-            ""
+            "i am {action}",
+            "i want to commit {action}",
+            "{action}"
           ]
         },
         {
