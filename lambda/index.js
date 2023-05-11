@@ -27,21 +27,23 @@ const HelloWorldIntentHandler = {
     },
     handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
-        var alexaOutput;
+        var alexaOutput="";
         if(userInput){
             fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
-                .then(res=>res.json())
-                .then(out=>{
-                    var choices = out[Math.floor(Math.random()*Object.keys(out).length)];
-                    if(Object.keys(choices).length>1){
-                        var alexaQuestions=choices['questions'];
-                        var alexaAnswers=choices['answers'];
-                        alexaOutput=alexaQuestions+alexaAnswers;
-                    }
-                    else{
-                        alexaOutput=choices['randomFact'];
-                    }
-                })
+            .then(res=>res.json())
+            .then(out=>{
+                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                console.log(jembut)
+                if(Object.keys(jembut).length>1){
+                    console.log(jembut['questions']+jembut['answer']);
+                    alexaOutput+=jembut['questions']+jembut['answer'];
+                }
+                else{
+                    console.log(jembut['randomFact']);
+                    alexaOutput+=jembut['randomFact'];
+                } 
+    })
+    .catch(err=>console.log(err))
         }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
