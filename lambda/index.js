@@ -5,23 +5,20 @@
  * */
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7829011ff03e15a7ead74c345eed00316409a491
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
+        var speakOutput="this is success";
+        
         return handlerInput.responseBuilder
-            .addDelegateDirective({
-                name:'HelloWorldIntent',
-                confirmationStatus:'NONE',
-                slots:{
-                    action:{
-                        name:'action',
-                        confirmationStatus:'NONE',
-                        type:"ActionType",
-                    }
-                }
-            })
+            .speak(speakOutput)
+            .reprompt(speakOutput)
             .getResponse();
     }
 };
