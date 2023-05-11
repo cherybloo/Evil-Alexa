@@ -41,7 +41,7 @@ const HelloWorldIntentHandler = {
             }).catch(err=>console.log(err))
         
         return handlerInput.responseBuilder
-            .speak(alexaOutput)
+            .speak(userInput)
             .reprompt("go suicide right now boss nobody love you")
             .getResponse();
     }
