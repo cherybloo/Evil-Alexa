@@ -12,9 +12,10 @@ const LaunchRequestHandler = {
     },
     handle(handlerInput) {
         var speakOutput="this is success";
+        
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .reprompt()
+            .reprompt(speakOutput)
             .getResponse();
     }
 };
