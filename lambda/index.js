@@ -41,7 +41,7 @@ const HelloWorldIntentHandler = {
                     else{
                         alexaOutput=choices['randomFact'];
                     }
-                }).catch(err=>console.log(err))
+                })
         }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
