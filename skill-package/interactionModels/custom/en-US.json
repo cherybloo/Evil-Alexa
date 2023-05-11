@@ -1,62 +1,96 @@
 {
   "interactionModel": {
-    "languageModel": {
-      "invocationName": "i am",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "HelloWorldIntent",
-          "slots": [
-            {
-              "name":"action",
-              "type":"ActionType"
-            }
+      "languageModel": {
+          "invocationName": "i am",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "HelloWorldIntent",
+                  "slots": [
+                      {
+                          "name": "action",
+                          "type": "ActionType",
+                          "samples": [
+                              "{action}"
+                          ]
+                      }
+                  ],
+                  "samples": [
+                      "i am {action}",
+                      "i want to commit {action}",
+                      "{action}"
+                  ]
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              }
           ],
-          "samples": [
-            "i am {action}",
-            "i want to commit {action}",
-            "{action}"
+          "types": [
+              {
+                  "name": "ActionType",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "depressed"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "lonely"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "suicide"
+                          }
+                      }
+                  ]
+              }
           ]
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        }
-      ],
-      "types": [
-        {
-          "name":"ActionType",
-          "values":[
-            {
-              "name":{
-                "value":"depressed"
+      },
+      "dialog": {
+          "intents": [
+              {
+                  "name": "HelloWorldIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "action",
+                          "type": "ActionType",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.498312605650.1576362501644"
+                          }
+                      }
+                  ]
               }
-            },
-            {
-              "name":{
-                "value":"lonely"
-              }
-            },
-            {
-              "name":{
-                "value":"suicide"
-              }
-            }
-          ]
-        }
+          ],
+          "delegationStrategy": "ALWAYS"
+      },
+      "prompts": [
+          {
+              "id": "Elicit.Slot.498312605650.1576362501644",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "what did you say boss?"
+                  }
+              ]
+          }
       ]
-    }
-  },
-  "version": "2"
+  }
 }
