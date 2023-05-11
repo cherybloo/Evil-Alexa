@@ -26,6 +26,7 @@ const HelloWorldIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     handle(handlerInput) {
+        var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
         var alexaOutput;
         fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
             .then(res=>res.json())
