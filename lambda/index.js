@@ -55,6 +55,20 @@ const HelloWorldIntentHandler = {
             .getResponse();
     }
 };
+const ShitIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'shit thing happening here';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -167,6 +181,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         HelloWorldIntentHandler,
+        ShitIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
