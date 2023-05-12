@@ -83,6 +83,54 @@ async function getPlaybackInfo(handlerInput) {
   return attributes.playbackInfo;
 }
 
+async function setPlaybackInfo(handlerInput, playbackInfoObject) {
+  await handlerInput.attributesManager.setPersistentAttributes({
+      playbackInfo: playbackInfoObject
+      });
+}
+
+const AudioPlayerEventHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type.startsWith('AudioPlayer.');
+  },
+  async handle(handlerInput) {
+    const playbackInfo = await getPlaybackInfo(handlerInput);
+    
+    const audioPlayerEventName = handlerInput.requestEnvelope.request.type.split('.')[1];
+    console.log(`AudioPlayer event encountered: ${handlerInput.requestEnvelope.request.type}`);
+    let returnResponseFlag = false;
+    switch (audioPlayerEventName) {
+      case 'PlaybackStarted':
+        playbackInfo.token = handlerInput.requestEnvelope.request.token;
+        playbackInfo.inPlaybackSession = true;
+        playbackInfo.hasPreviousPlaybackSession = true;
+        returnResponseFlag = true;
+        break;
+      case 'PlaybackFinished':
+        playbackInfo.inPlaybackSession = false;
+        playbackInfo.hasPreviousPlaybackSession = false;
+        playbackInfo.nextStreamEnqueued = false;
+        returnResponseFlag = true;
+        break;
+      case 'PlaybackStopped':
+        playbackInfo.token = handlerInput.requestEnvelope.request.token;
+        playbackInfo.inPlaybackSession = true;
+        playbackInfo.offsetInMilliseconds = handlerInput.requestEnvelope.request.offsetInMilliseconds;
+        break;
+      case 'PlaybackNearlyFinished':
+        break;
+      case 'PlaybackFailed':
+        playbackInfo.inPlaybackSession = false;
+        console.log('Playback Failed : %j', handlerInput.requestEnvelope.request.error);
+        break;
+      default:
+        break;
+    }
+    setPlaybackInfo(handlerInput, playbackInfo);
+    return handlerInput.responseBuilder.getResponse();
+  },
+};
+
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -197,6 +245,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         ShitIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
+        AudioPlayerEventHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
         IntentReflectorHandler)
