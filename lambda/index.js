@@ -67,7 +67,7 @@ const ShitIntentHandler = {
         const musicLink = 'https://cherybloo.github.io/musically/numero-uno.mp3';
 
         return handlerInput.responseBuilder
-            .addAudioPlayerDirective(
+            .addAudioPlayerPlayDirective(
                 playBehavior,
                 musicLink,
                 playbackInfo.token,
