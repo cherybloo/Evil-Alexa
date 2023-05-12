@@ -64,8 +64,8 @@ const ShitIntentHandler = {
         //const playbackInfo = await getPlaybackInfo(handlerInput);
         const speakOutput = "this is shit intent boi";
         const playBehavior = 'REPLACE_ALL';
-        const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
-        
+        //const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
+        const musicLink = 'https://www.youtube.com/watch?v=HQEZ-RiW7X0&list=OLAK5uy_laMVtisf9qlnpm-M9Vl06bAAGIwUheMms&index=7';
         return handlerInput.responseBuilder
             //.speak(speakOutput)
             .addAudioPlayerPlayDirective(
