@@ -58,17 +58,30 @@ const HelloWorldIntentHandler = {
 const ShitIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent';
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
+        const playbackInfo = await getPlaybackInfo(handlerInput);
+        const playBehavior = 'REPLACE_ALL';
         const speakOutput = 'shit thing happening here';
+        const musicLink = 'https://cherybloo.github.io/musically/numero-uno.mp3';
 
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .reprompt(speakOutput)
+            .addAudioPlayerDirective(
+                playBehavior,
+                musicLink,
+                playbackInfo.token,
+                playbackInfo.offsetInMilliseconds
+            )
+            .reprompt()
             .getResponse();
     }
 };
+
+async function getPlaybackInfo(handlerInput) {
+  const attributes = await handlerInput.attributesManager.getPersistentAttributes();
+  return attributes.playbackInfo;
+}
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
