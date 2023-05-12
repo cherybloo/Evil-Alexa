@@ -68,7 +68,14 @@ const ShitIntentHandler = {
         
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            
+            .addAudioPlayerPlayDirective(
+                playBehavior,
+                musicLink,
+                musicLink,
+                0,
+                null
+                )
+            .withShouldEndSession(true)
             .getResponse();
     }
 };
