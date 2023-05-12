@@ -62,10 +62,11 @@ const ShitIntentHandler = {
     },
     async handle(handlerInput) {
         const playbackInfo = await getPlaybackInfo(handlerInput);
+        
         const playBehavior = 'REPLACE_ALL';
         const speakOutput = 'shit thing happening here';
         const musicLink = 'https://cherybloo.github.io/musically/numero-uno.mp3';
-
+        
         return handlerInput.responseBuilder
             .addAudioPlayerPlayDirective(
                 playBehavior,
@@ -73,7 +74,6 @@ const ShitIntentHandler = {
                 playbackInfo.token,
                 playbackInfo.offsetInMilliseconds
             )
-            .reprompt()
             .getResponse();
     }
 };
