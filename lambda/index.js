@@ -34,7 +34,7 @@ const HelloWorldIntentHandler = {
         var userAnswer=handlerInput.requestEnvelope.request.intent.slots.Query.value;
         var alexaOutput;
         var alexaAnswer;
-        if(userInput || anotha || userAnswer){
+        if((userInput || anotha) || userAnswer){
             await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
                 .then(res=>res.json())
                 .then(out=>{
