@@ -74,7 +74,7 @@ const AnswerIntentHandler = {
     },
     handle(handlerInput) {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        if(userAnswer===alexaAnswer){
+        if(userAnswer==alexaAnswer){
             return handlerInput.responseBuilder
                 .speak("yaehya")
                 .reprompt()
@@ -82,7 +82,7 @@ const AnswerIntentHandler = {
         }
         else{
             return handlerInput.responseBuilder
-                .speak(alexaAnswer)
+                .speak(userAnswer)
                 .reprompt()
                 .getResponse()
         }
