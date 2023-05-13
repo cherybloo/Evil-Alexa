@@ -40,7 +40,7 @@ const HelloWorldIntentHandler = {
                 var jembut = out[22];
                 //console.log(jembut)
                 if(Object.keys(jembut).length>1){
-                    console.log(jembut['questions'][22]+jembut['answer']);
+                    console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
                     alexaAnswer=jembut['answer'];
                     
