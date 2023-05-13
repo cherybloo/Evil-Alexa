@@ -109,7 +109,7 @@ const AnswerIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent' ;
     },
     handle(handlerInput) {
-        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.QUery.value;
+        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         if(userAnswer==alexaAnswer){
             return handlerInput.responseBuilder
                 .speak("yaehya")
