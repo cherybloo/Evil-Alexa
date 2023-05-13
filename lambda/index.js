@@ -45,7 +45,7 @@ const HelloWorldIntentHandler = {
                         return handlerInput.responseBuilder
                             .speak(alexaOutput)
                             .addDelegateDirective({
-                                name:'AnsweIntent',
+                                name:'AnswerIntent',
                                 confirmationStatus:'NONE',
                                 slots:{
                                     Query:{
@@ -231,8 +231,8 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        AnswerIntentHandler,
         HelloWorldIntentHandler,
+        AnswerIntentHandler,
         ShitIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
