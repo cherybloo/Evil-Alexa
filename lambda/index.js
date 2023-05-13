@@ -54,7 +54,7 @@ const HelloWorldIntentHandler = {
             if(alexaOutput.includes("?")){
                 return handlerInput.responseBuilder
                     .speak(alexaOutput)
-                    
+                    .reprompt()
                     .getResponse()
             }
             else{
