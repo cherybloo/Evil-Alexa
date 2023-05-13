@@ -56,6 +56,7 @@ const HelloWorldIntentHandler = {
             
             if(alexaOutput.includes("?")){
                 return handlerInput.responseBuilder
+                    .speak(alexaOutput)
                     .addDelegateDirective({
                         name:'AnswerIntent',
                         confirmationStatus:'NONE',
@@ -67,7 +68,7 @@ const HelloWorldIntentHandler = {
                             }
                         },
                     })
-                    .speak(alexaOutput)
+                    
                     .getResponse()
             }
             else{
