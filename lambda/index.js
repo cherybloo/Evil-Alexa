@@ -39,9 +39,9 @@ const HelloWorldIntentHandler = {
                 var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
                 //console.log(jembut)
                 if(Object.keys(jembut).length>1){
-                    console.log(jembut['questions']+jembut['answer']);
-                    alexaOutput=jembut['questions'];
-                    alexaAnswer=jembut['answer'];
+                    console.log(jembut['questions'][22]+jembut['answer']);
+                    alexaOutput=jembut['questions'][22];
+                    alexaAnswer=jembut['answer'][22];
                     
                     
                 }
