@@ -6,7 +6,7 @@
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
 const request = require('request');
-var alexaAnswer;
+let alexaAnswer;
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -40,16 +40,13 @@ const HelloWorldIntentHandler = {
                 var jembut = out[22];
                 //console.log(jembut)
                 if(Object.keys(jembut).length>1){
-                    console.log(jembut['questions']+jembut['answer']);
+                    //console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
-                    alexaAnswer=jembut['answer'];
-                    
-                    
+                    alexaAnswer=jembut['answer'];  
                 }
                 else {
                     console.log(jembut['randomFact']);
                     alexaOutput=jembut['randomFact'];
-                    
                 }
             })
             .catch(err=>console.log(err))
