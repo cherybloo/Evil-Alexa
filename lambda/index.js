@@ -72,7 +72,7 @@ const HelloWorldIntentHandler = {
             else{
                 return handlerInput.responseBuilder
                     .speak(alexaOutput)
-                    .reprompt()
+                    .reprompt("got something to say boss?")
                     .getResponse()
             }
         
