@@ -7,6 +7,7 @@ const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
 const request = require('request');
 var alexaAnswer;
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
