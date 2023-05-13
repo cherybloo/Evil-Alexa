@@ -33,33 +33,32 @@ const HelloWorldIntentHandler = {
         
         var alexaOutput;
         
-        if(userInput || anotha){
-            await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
-                .then(res=>res.json())
-                .then(out=>{
-                    var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
-                    //console.log(jembut)
-                    if(Object.keys(jembut).length>1){
-                        console.log(jembut['questions']+jembut['answer']);
-                        alexaOutput=jembut['questions'];
-                        alexaAnswer=jembut['answer'];
-                        return handlerInput.responseBuilder
-                            .speak(alexaOutput)
-                            .reprompt()
-                            .getResponse()
-                        
-                    }
-                    else {
-                        console.log(jembut['randomFact']);
-                        alexaOutput=jembut['randomFact'];
-                        return handlerInput.responseBuilder
-                            .speak(alexaOutput)
-                            .reprompt()
-                            .getResponse()
-                    }
-                })
-                .catch(err=>console.log(err))
-        }
+        await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
+            .then(res=>res.json())
+            .then(out=>{
+                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                //console.log(jembut)
+                if(Object.keys(jembut).length>1){
+                    console.log(jembut['questions']+jembut['answer']);
+                    alexaOutput=jembut['questions'];
+                    alexaAnswer=jembut['answer'];
+                    return handlerInput.responseBuilder
+                        .speak(alexaOutput)
+                        .reprompt()
+                        .getResponse()
+                    
+                }
+                else {
+                    console.log(jembut['randomFact']);
+                    alexaOutput=jembut['randomFact'];
+                    return handlerInput.responseBuilder
+                        .speak(alexaOutput)
+                        .reprompt()
+                        .getResponse()
+                }
+            })
+            .catch(err=>console.log(err))
+        
     }
 };
 const ShitIntentHandler = {
