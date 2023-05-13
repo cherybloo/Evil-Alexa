@@ -44,7 +44,16 @@ const HelloWorldIntentHandler = {
                         alexaOutput=jembut['questions'];
                         alexaAnswer=jembut['answer'];
                         if(alexaAnswer===handlerInput.requestEnvelope.request.intent.slots.Query.value){
-                            alexaAnswer="huray";
+                            return handlerInput.responseBuilder
+                                .speak("huray you are right")
+                                .reprompt()
+                                .getResponse()
+                        }
+                        else{
+                            return handlerInput.responseBuilder
+                                .speak("You stupid")
+                                .reprompt()
+                                .getResponse()
                         }
                         
                     }
@@ -57,8 +66,6 @@ const HelloWorldIntentHandler = {
         }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
-            .reprompt()
-            .speak(alexaAnswer)
             .reprompt()
             .getResponse();
     }
