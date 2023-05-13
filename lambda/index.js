@@ -42,7 +42,7 @@ const HelloWorldIntentHandler = {
                 if(Object.keys(jembut).length>1){
                     //console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
-                    alexaAnswer=jembut['answer'];  
+                    alexaAnswer=jembut['answer'].toLowerCase().split(".")[0];
                 }
                 else {
                     console.log(jembut['randomFact']);
