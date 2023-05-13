@@ -24,17 +24,16 @@ const LaunchRequestHandler = {
 const HelloWorldIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent'
-                || Alexa.getIntentName(handlerInput.requestEnvelope)==='AnswerIntent'
-                );
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent' || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent');
     },
     async handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
         var anotha=handlerInput.requestEnvelope.request.intent;
         var userAnswer=handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        
         var alexaOutput;
         var alexaAnswer;
-        if((userInput || anotha) || userAnswer){
+        if(userInput || anotha || userAnswer){
             await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
                 .then(res=>res.json())
                 .then(out=>{
@@ -44,19 +43,18 @@ const HelloWorldIntentHandler = {
                         console.log(jembut['questions']+jembut['answer']);
                         alexaOutput=jembut['questions'];
                         alexaAnswer=jembut['answer'];
-                        if(alexaAnswer===userAnswer){
+                        if(alexaAnswer==userAnswer){
                             return handlerInput.responseBuilder
-                                .speak("huray you are right")
+                                .speak("you are right")
                                 .reprompt()
-                                .getResponse()
+                                .getResponse();
                         }
-                        else{
+                        if(alexaAnswer!=userAnswer){
                             return handlerInput.responseBuilder
-                                .speak("You stupid")
+                                .speak("DUMB DUCK YOU ARE")
                                 .reprompt()
-                                .getResponse()
+                                .getResponse();
                         }
-                        
                     }
                     else {
                         console.log(jembut['randomFact']);
@@ -92,6 +90,18 @@ const ShitIntentHandler = {
                 null
                 )
             .withShouldEndSession(true)
+            .getResponse();
+    }
+};
+
+const AnswerIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
+    },
+    handle(handlerInput) {
+        
+        return handlerInput.responseBuilder
             .getResponse();
     }
 };
@@ -207,6 +217,7 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
+        AnswerIntentHandler,
         HelloWorldIntentHandler,
         ShitIntentHandler,
         HelpIntentHandler,
