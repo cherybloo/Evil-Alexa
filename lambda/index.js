@@ -115,9 +115,6 @@ const ShitIntentHandler = {
     }
 };
 
-
-
-
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
