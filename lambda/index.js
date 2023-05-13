@@ -57,6 +57,17 @@ const HelloWorldIntentHandler = {
                 return handlerInput.responseBuilder
                     .speak(alexaOutput)
                     .reprompt()
+                    .addDelegateDirective({
+                        name:'AnswerIntent',
+                        confirmationStatus:'NONE',
+                        slots:{
+                            Query:{
+                                name:"Query",
+                                confirmationStatus:'NONE',
+                                type:"AMAZON.SearchQuery"
+                            }
+                        }
+                    })
                     .getResponse()
             }
             else{
