@@ -74,7 +74,7 @@ const AnswerIntentHandler = {
     },
     handle(handlerInput) {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
-        if(userAnswer==alexaAnswer){
+        if(userAnswer==alexaAnswer.toLowerCase()){
             return handlerInput.responseBuilder
                 .speak("yaehya")
                 .reprompt()
