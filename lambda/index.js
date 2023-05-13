@@ -36,12 +36,13 @@ const HelloWorldIntentHandler = {
         await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
             .then(res=>res.json())
             .then(out=>{
-                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                //var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                var jembut = out[22];
                 //console.log(jembut)
                 if(Object.keys(jembut).length>1){
                     console.log(jembut['questions'][22]+jembut['answer']);
-                    alexaOutput=jembut['questions'][22];
-                    alexaAnswer=jembut['answer'][22];
+                    alexaOutput=jembut['questions'];
+                    alexaAnswer=jembut['answer'];
                     
                     
                 }
