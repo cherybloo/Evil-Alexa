@@ -52,10 +52,19 @@ const HelloWorldIntentHandler = {
                 }
             })
             .catch(err=>console.log(err))
-            return handlerInput.responseBuilder
-                        .speak(alexaOutput)
-                        .reprompt()
-                        .getResponse()
+            
+            if(alexaOutput.includes("?")){
+                return handlerInput.responseBuilder
+                    .speak(alexaOutput)
+                    .reprompt()
+                    .getResponse()
+            }
+            else{
+                return handlerInput.responseBuilder
+                    .speak(alexaOutput)
+                    .reprompt()
+                    .getResponse()
+            }
         
     }
 };
