@@ -6,7 +6,7 @@
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
 const request = require('request');
-
+var alexaAnswer;
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -24,16 +24,15 @@ const LaunchRequestHandler = {
 const HelloWorldIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent' || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent');
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     async handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
         var anotha=handlerInput.requestEnvelope.request.intent;
-        var userAnswer=handlerInput.requestEnvelope.request.intent.slots.Query.value;
         
         var alexaOutput;
-        var alexaAnswer;
-        if(anotha || userAnswer){
+        
+        if(userInput || anotha){
             await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
                 .then(res=>res.json())
                 .then(out=>{
@@ -43,19 +42,34 @@ const HelloWorldIntentHandler = {
                         console.log(jembut['questions']+jembut['answer']);
                         alexaOutput=jembut['questions'];
                         alexaAnswer=jembut['answer'];
+                        return handlerInput.responseBuilder
+                            .speak(alexaOutput)
+                            .addDelegateDirective({
+                                name:'AnsweIntent',
+                                confirmationStatus:'NONE',
+                                slots:{
+                                    Query:{
+                                        name:'Query',
+                                        confirmationStatus:'NONE',
+                                        type:"AMAZON.SearchQuery"
+                                    }
+                                }
+                            })
+                            .reprompt()
+                            .getResponse();
                         
                     }
                     else {
                         console.log(jembut['randomFact']);
                         alexaOutput=jembut['randomFact'];
+                        return handlerInput.responseBuilder
+                            .speak(alexaOutput)
+                            .reprompt()
+                            .getResponse();
                     }
                 })
                 .catch(err=>console.log(err))
         }
-        return handlerInput.responseBuilder
-            .speak(alexaOutput)
-            .reprompt()
-            .getResponse();
     }
 };
 const ShitIntentHandler = {
@@ -86,12 +100,23 @@ const ShitIntentHandler = {
 const AnswerIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent' ;
     },
     handle(handlerInput) {
+        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.QUery.value;
+        if(userAnswer==alexaAnswer){
+            return handlerInput.responseBuilder
+                .speak("yaehya")
+                .reprompt()
+                .getResponse()
+        }
+        else{
+            return handlerInput.responseBuilder
+                .speak("u dumb duck face")
+                .reprompt()
+                .getResponse()
+        }
         
-        return handlerInput.responseBuilder
-            .getResponse();
     }
 };
 
