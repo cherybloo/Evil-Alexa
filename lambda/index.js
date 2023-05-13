@@ -43,18 +43,7 @@ const HelloWorldIntentHandler = {
                         console.log(jembut['questions']+jembut['answer']);
                         alexaOutput=jembut['questions'];
                         alexaAnswer=jembut['answer'];
-                        if(alexaAnswer==userAnswer){
-                            return handlerInput.responseBuilder
-                                .speak("you are right")
-                                .reprompt()
-                                .getResponse();
-                        }
-                        if(alexaAnswer!=userAnswer){
-                            return handlerInput.responseBuilder
-                                .speak("DUMB DUCK YOU ARE")
-                                .reprompt()
-                                .getResponse();
-                        }
+                        
                     }
                     else {
                         console.log(jembut['randomFact']);
