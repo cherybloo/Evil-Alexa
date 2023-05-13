@@ -42,33 +42,20 @@ const HelloWorldIntentHandler = {
                         console.log(jembut['questions']+jembut['answer']);
                         alexaOutput=jembut['questions'];
                         alexaAnswer=jembut['answer'];
-                        return handlerInput.responseBuilder
-                            .speak(alexaOutput)
-                            .addDelegateDirective({
-                                name:'AnswerIntent',
-                                confirmationStatus:'NONE',
-                                slots:{
-                                    Query:{
-                                        name:'Query',
-                                        confirmationStatus:'NONE',
-                                        type:"AMAZON.SearchQuery"
-                                    }
-                                }
-                            })
-                            .reprompt()
-                            .getResponse();
+                        
                         
                     }
                     else {
                         console.log(jembut['randomFact']);
                         alexaOutput=jembut['randomFact'];
-                        return handlerInput.responseBuilder
-                            .speak(alexaOutput)
-                            .reprompt()
-                            .getResponse();
+                        
                     }
                 })
                 .catch(err=>console.log(err))
+            return handlerInput.responseBuilder
+                .speak(alexaOutput)
+                .reprompt()
+                .getResponse()
         }
     }
 };
