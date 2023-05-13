@@ -54,17 +54,6 @@ const HelloWorldIntentHandler = {
             if(alexaOutput.includes("?")){
                 return handlerInput.responseBuilder
                     .speak(alexaOutput)
-                    .addDelegateDirective({
-                        name:'AnswerIntent',
-                        confirmationStatus:'NONE',
-                        slots:{
-                            Query:{
-                                name:'Query',
-                                confirmationStatus:'NONE',
-                                type: "AMAZON.SearchQuery",
-                            }
-                        },
-                    })
                     
                     .getResponse()
             }
@@ -75,30 +64,6 @@ const HelloWorldIntentHandler = {
                     .getResponse()
             }
         
-    }
-};
-const ShitIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
-    },
-    async handle(handlerInput) {
-        //const playbackInfo = await getPlaybackInfo(handlerInput);
-        const speakOutput = "this is shit intent boi";
-        const playBehavior = 'REPLACE_ALL';
-        const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
-        
-        return handlerInput.responseBuilder
-            //.speak(speakOutput)
-            .addAudioPlayerPlayDirective(
-                playBehavior,
-                musicLink,
-                musicLink,
-                0,
-                null
-                )
-            .withShouldEndSession(true)
-            .getResponse();
     }
 };
 
@@ -124,6 +89,33 @@ const AnswerIntentHandler = {
         
     }
 };
+
+const ShitIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
+    },
+    async handle(handlerInput) {
+        //const playbackInfo = await getPlaybackInfo(handlerInput);
+        const speakOutput = "this is shit intent boi";
+        const playBehavior = 'REPLACE_ALL';
+        const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
+        
+        return handlerInput.responseBuilder
+            //.speak(speakOutput)
+            .addAudioPlayerPlayDirective(
+                playBehavior,
+                musicLink,
+                musicLink,
+                0,
+                null
+                )
+            .withShouldEndSession(true)
+            .getResponse();
+    }
+};
+
+
 
 
 const HelpIntentHandler = {
