@@ -82,7 +82,7 @@ const AnswerIntentHandler = {
         }
         else{
             return handlerInput.responseBuilder
-                .speak("u dumb duck face")
+                .speak(alexaAnswer)
                 .reprompt()
                 .getResponse()
         }
