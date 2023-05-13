@@ -24,12 +24,15 @@ const LaunchRequestHandler = {
 const HelloWorldIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent'
+                || Alexa.getIntentName(handlerInput.requestEnvelope)==='AnswerIntent'
+                );
     },
     async handle(handlerInput) {
         var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
         var anotha=handlerInput.requestEnvelope.request.intent;
         var alexaOutput;
+        var alexaAnswer;
         if(userInput || anotha){
             await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
                 .then(res=>res.json())
@@ -38,10 +41,13 @@ const HelloWorldIntentHandler = {
                     //console.log(jembut)
                     if(Object.keys(jembut).length>1){
                         console.log(jembut['questions']+jembut['answer']);
-                        alexaOutput=jembut['questions']+jembut['answer'];
+                        alexaOutput=jembut['questions'];
+                        alexaAnswer=jembut['answer'];
+                        if(alexaAnswer===handlerInput.requestEnvelope.request.intent.slots.Query.value){
+                            alexaAnswer="huray";
+                        }
                         
                     }
-                    
                     else {
                         console.log(jembut['randomFact']);
                         alexaOutput=jembut['randomFact'];
@@ -51,7 +57,9 @@ const HelloWorldIntentHandler = {
         }
         return handlerInput.responseBuilder
             .speak(alexaOutput)
-            .reprompt("go suicide right now boss nobody love you")
+            .reprompt()
+            .speak(alexaAnswer)
+            .reprompt()
             .getResponse();
     }
 };
