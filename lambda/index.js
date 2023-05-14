@@ -93,12 +93,12 @@ const ShitIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         //const playbackInfo = await getPlaybackInfo(handlerInput);
         const speakOutput = "this is shit intent boi";
         const playBehavior = 'REPLACE_ALL';
         const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
-        
+        var playMusic = handlerInput.requestEnvelope.request.intent;
         return handlerInput.responseBuilder
             //.speak(speakOutput)
             .addAudioPlayerPlayDirective(
