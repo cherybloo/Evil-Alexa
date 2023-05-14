@@ -65,12 +65,6 @@ const AnswerIntentHandler = {
         var alternative = handlerInput.requestEnvelope.request.intent;
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         
-        if(userAnswer.toLowerCase()===alexaAnswer){
-            return handlerInput.responseBuilder
-                .speak("yaehya")
-                .reprompt()
-                .getResponse()
-        }
 
         return handlerInput.responseBuilder
             .speak("wrong u dumb duck")
