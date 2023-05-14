@@ -36,7 +36,8 @@ const HelloWorldIntentHandler = {
         await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
             .then(res=>res.json())
             .then(out=>{
-                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                //var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                var jembut = out[22];
                 if(Object.keys(jembut).length>1){
                     //console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
@@ -74,7 +75,7 @@ const AnswerIntentHandler = {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         var anothaAnswer = handlerInput.requestEnvelope.request.intent;
         
-        if(userAnswer.toLowerCase()==alexaAnswer){
+        if(userAnswer.toLowerCase()===alexaAnswer){
             return handlerInput.responseBuilder
                 .speak("yaehya")
                 .reprompt()
