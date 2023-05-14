@@ -99,7 +99,8 @@ const ShitIntentHandler = {
         const playBehavior = 'REPLACE_ALL';
         const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
         var playMusic = handlerInput.requestEnvelope.request.intent;
-        return handlerInput.responseBuilder
+        if(playMusic){
+            return handlerInput.responseBuilder
             //.speak(speakOutput)
             .addAudioPlayerPlayDirective(
                 playBehavior,
@@ -110,6 +111,7 @@ const ShitIntentHandler = {
                 )
             .withShouldEndSession(true)
             .getResponse();
+        }
     }
 };
 
