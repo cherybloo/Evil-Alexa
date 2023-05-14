@@ -49,27 +49,17 @@ const HelloWorldIntentHandler = {
                 }
             })
             .catch(err=>console.log(err))
-            
-            if(alexaOutput.includes("?")){
-                return handlerInput.responseBuilder
-                    .speak(alexaOutput)
-                    .reprompt()
-                    .getResponse()
-            }
-            else{
-                return handlerInput.responseBuilder
-                    .speak(alexaOutput)
-                    .reprompt("got something to say boss?")
-                    .getResponse()
-            }
-        
+            return handlerInput.responseBuilder
+                .speak(alexaOutput)
+                .reprompt()
+                .getResponse()
     }
 };
 
 const AnswerIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent' ;
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent';
     },
     handle(handlerInput) {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
@@ -87,7 +77,6 @@ const AnswerIntentHandler = {
                 .reprompt()
                 .getResponse()
         }
-        
     }
 };
 
