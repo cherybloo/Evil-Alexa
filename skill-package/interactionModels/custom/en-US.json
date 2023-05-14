@@ -1,96 +1,93 @@
 {
-  "interactionModel": {
-      "languageModel": {
-          "invocationName": "i am",
-          "intents": [
-              {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-              },
-              {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-              },
-              {
-                  "name": "HelloWorldIntent",
-                  "slots": [
-                      {
-                          "name": "action",
-                          "type": "ActionType",
-                          "samples": [
-                              "{action}"
-                          ]
-                      }
-                  ],
-                  "samples": [
-                      "i am {action}",
-                      "i want to commit {action}",
-                      "{action}"
-                  ]
-              },
-              {
-                  "name": "AMAZON.NavigateHomeIntent",
-                  "samples": []
-              }
-          ],
-          "types": [
-              {
-                  "name": "ActionType",
-                  "values": [
-                      {
-                          "name": {
-                              "value": "depressed"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "lonely"
-                          }
-                      },
-                      {
-                          "name": {
-                              "value": "suicide"
-                          }
-                      }
-                  ]
-              }
-          ]
-      },
-      "dialog": {
-          "intents": [
-              {
-                  "name": "HelloWorldIntent",
-                  "confirmationRequired": false,
-                  "prompts": {},
-                  "slots": [
-                      {
-                          "name": "action",
-                          "type": "ActionType",
-                          "confirmationRequired": false,
-                          "elicitationRequired": true,
-                          "prompts": {
-                              "elicitation": "Elicit.Slot.498312605650.1576362501644"
-                          }
-                      }
-                  ]
-              }
-          ],
-          "delegationStrategy": "ALWAYS"
-      },
-      "prompts": [
-          {
-              "id": "Elicit.Slot.498312605650.1576362501644",
-              "variations": [
-                  {
-                      "type": "PlainText",
-                      "value": "what did you say boss?"
-                  }
-              ]
-          }
-      ]
-  }
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "stupid man",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HelloWorldIntent",
+                    "slots": [
+                        {
+                            "name": "action",
+                            "type": "ActionType"
+                        }
+                    ],
+                    "samples": [
+                        "please brighten up my day",
+                        "tell me some motivational quote",
+                        "bright up my day with a motivational quote please",
+                        "i am {action} right now",
+                        "i am {action}",
+                        "i want to commit {action}",
+                        "{action}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AnswerIntent",
+                    "slots": [
+                        {
+                            "name": "Query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "no idea",
+                        "i don't know",
+                        "i guess {Query}",
+                        "my answer is {Query}"
+                    ]
+                },
+                {
+                    "name": "AMAZON.PauseIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.ResumeIntent",
+                    "samples": []
+                }
+            ],
+            "types": [
+                {
+                    "name": "ActionType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "stress"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "depressed"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "lonely"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "suicide"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 }

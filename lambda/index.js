@@ -5,10 +5,20 @@
  * */
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
-<<<<<<< HEAD
-=======
+const express = require('express');
+const app = express();
+const port = 6969;
 
->>>>>>> 7829011ff03e15a7ead74c345eed00316409a491
+app.get('/',(req,res)=>{
+    res.send("this server is hosted by ALEXA");
+})
+
+app.listen(port,()=>{
+    console.log(`Please be working on http://localhost:${port}`)
+})
+
+let alexaAnswer="";
+
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -28,26 +38,58 @@ const HelloWorldIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
+        var userInput=handlerInput.requestEnvelope.request.intent.slots.action.value;
+        var anotha=handlerInput.requestEnvelope.request.intent;
+        
         var alexaOutput;
-        fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
+        
+        await fetch('https://cherybloo.github.io/suicidal-jokes-api/suicidal.json')
             .then(res=>res.json())
             .then(out=>{
-                var choices = out[Math.floor(Math.random()*Object.keys(out).length)];
-                if(Object.keys(choices).length>1){
-                    var alexaQuestions=choices['questions'];
-                    var alexaAnswers=choices['answers'];
-                    alexaOutput=alexaQuestions+alexaAnswers;
+                var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                if(Object.keys(jembut).length>1){
+                    //console.log(jembut['questions']+jembut['answer']);
+                    alexaOutput=jembut['questions'];
+                    alexaAnswer=jembut['answer'].toLowerCase().split(".")[0];
                 }
-                else alexaOutput=choices['randomFact'];
-            }).catch(err=>console.log(err))
-        
-        return handlerInput.responseBuilder
-            .speak(alexaOutput)
-            .reprompt("go suicide right now boss nobody love you")
-            .getResponse();
+                else {
+                    console.log(jembut['randomFact']);
+                    alexaOutput=jembut['randomFact'];
+                }
+            })
+            .catch(err=>console.log(err))
+            return handlerInput.responseBuilder
+                .speak(alexaOutput)
+                .reprompt()
+                .getResponse()
     }
 };
+
+const AnswerIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent';
+    },
+    handle(handlerInput) {
+        var alternative = handlerInput.requestEnvelope.request.intent;
+        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        
+        if(userAnswer === alexaAnswer){
+            return handlerInput.responseBuilder
+                .speak("yeahya")
+                .reprompt()
+                .getResponse()
+        }
+        else{
+            return handlerInput.responseBuilder
+            .speak("wrong u dumb duck")
+            .reprompt()
+            .getResponse() 
+        }
+    }
+};
+
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -160,6 +202,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         HelloWorldIntentHandler,
+        AnswerIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
