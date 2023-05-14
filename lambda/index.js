@@ -71,7 +71,7 @@ const AnswerIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent' ;
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         var anothaAnswer = handlerInput.requestEnvelope.request.intent;
         
