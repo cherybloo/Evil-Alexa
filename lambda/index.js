@@ -6,7 +6,7 @@
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
 const request = require('request');
-let alexaAnswer;
+let alexaAnswer="";
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -71,10 +71,12 @@ const AnswerIntentHandler = {
                 .reprompt()
                 .getResponse()
         }
-        return handlerInput.responseBuilder
+        else{
+            return handlerInput.responseBuilder
             .speak("wrong u dumb duck")
             .reprompt()
             .getResponse() 
+        }
     }
 };
 
