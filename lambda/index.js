@@ -62,8 +62,8 @@ const AnswerIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent';
     },
     handle(handlerInput) {
-        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         var alternative = handlerInput.requestEnvelope.request.intent;
+        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         
         if(userAnswer.toLowerCase()===alexaAnswer){
             return handlerInput.responseBuilder
@@ -71,12 +71,12 @@ const AnswerIntentHandler = {
                 .reprompt()
                 .getResponse()
         }
-        else{
-            return handlerInput.responseBuilder
-            .speak("wrong u dumb duck")
-            .reprompt()
-            .getResponse()
-        }
+
+        return handlerInput.responseBuilder
+        .speak("wrong u dumb duck")
+        .reprompt()
+        .getResponse()
+        
     }
 };
 
