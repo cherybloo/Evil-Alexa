@@ -73,13 +73,14 @@ const AnswerIntentHandler = {
     handle(handlerInput) {
         var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
         var anothaAnswer = handlerInput.requestEnvelope.request.intent;
+        
         if(userAnswer.toLowerCase()==alexaAnswer){
             return handlerInput.responseBuilder
                 .speak("yaehya")
                 .reprompt()
                 .getResponse()
         }
-        else if(anothaAnswer){
+        if(anothaAnswer){
             return handlerInput.responseBuilder
                 .speak("wrong u dumb duck")
                 .reprompt()
