@@ -73,10 +73,9 @@ const AnswerIntentHandler = {
         }
 
         return handlerInput.responseBuilder
-        .speak("wrong u dumb duck")
-        .reprompt()
-        .getResponse()
-        
+            .speak("wrong u dumb duck")
+            .reprompt()
+            .getResponse() 
     }
 };
 
