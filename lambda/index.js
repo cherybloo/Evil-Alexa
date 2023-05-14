@@ -16,7 +16,7 @@ app.get('/',(req,res)=>{
 app.listen(port,()=>{
     console.log(`Please be working on http://localhost:${port}`)
 })
-
+const request = require('request');
 let alexaAnswer="";
 
 const LaunchRequestHandler = {
@@ -48,6 +48,7 @@ const HelloWorldIntentHandler = {
             .then(res=>res.json())
             .then(out=>{
                 var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
+                //var jembut = out[22];
                 if(Object.keys(jembut).length>1){
                     //console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
