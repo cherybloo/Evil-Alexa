@@ -71,12 +71,12 @@ const AnswerIntentHandler = {
                 .reprompt()
                 .getResponse()
         }
-
-        return handlerInput.responseBuilder
+        else{
+            return handlerInput.responseBuilder
             .speak("wrong u dumb duck")
             .reprompt()
             .getResponse()
-        
+        }
     }
 };
 
