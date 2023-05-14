@@ -80,7 +80,7 @@ const AnswerIntentHandler = {
         }
         else{
             return handlerInput.responseBuilder
-                .speak(userAnswer)
+                .speak("wrong u dumb duck")
                 .reprompt()
                 .getResponse()
         }
@@ -88,14 +88,14 @@ const AnswerIntentHandler = {
     }
 };
 
-const ShitIntentHandler = {
+/*const ShitIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'ShitIntent' || Alexa.getIntentName(handlerInput.requestEnvelope)==='AMAZON.ResumeIntent');
     },
     handle(handlerInput) {
         //const playbackInfo = await getPlaybackInfo(handlerInput);
-        const speakOutput = "this is shit intent boi";
+        //const speakOutput = "this is shit intent boi";
         const playBehavior = 'REPLACE_ALL';
         const musicLink = 'https://cherybloo.github.io/musically/indian.mp3';
         var playMusic = handlerInput.requestEnvelope.request.intent;
@@ -113,7 +113,7 @@ const ShitIntentHandler = {
             .getResponse();
         }
     }
-};
+};*/
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
@@ -227,7 +227,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         HelloWorldIntentHandler,
         AnswerIntentHandler,
-        ShitIntentHandler,
+        //ShitIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
