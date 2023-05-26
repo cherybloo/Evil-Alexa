@@ -5,19 +5,10 @@
  * */
 const Alexa = require('ask-sdk-core');
 const fetch = require('node-fetch');
-const express = require('express');
-const app = express();
-const port = 6969;
+//const request = require('request');
+//const http = require('http');
+var alexaAnswer;
 
-app.get('/',(req,res)=>{
-    res.send("this server is hosted by ALEXA");
-})
-
-app.listen(port,()=>{
-    console.log(`Please be working on http://localhost:${port}`)
-})
-const request = require('request');
-let alexaAnswer="";
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -48,7 +39,7 @@ const HelloWorldIntentHandler = {
             .then(res=>res.json())
             .then(out=>{
                 var jembut = out[Math.floor(Math.random()*Object.keys(out).length)]
-                //var jembut = out[22];
+                //var jembut = out[20];
                 if(Object.keys(jembut).length>1){
                     //console.log(jembut['questions']+jembut['answer']);
                     alexaOutput=jembut['questions'];
@@ -67,26 +58,36 @@ const HelloWorldIntentHandler = {
     }
 };
 
+async function onShit(){
+    const response =  await fetch("https://ef49-2003-6-13f3-90d9-3111-3492-4cf3-fc4d.ngrok-free.app/2/on"); //since I'm broke this is the only free stuff that's working so yeah
+}
+
+async function offShit(){
+    const response = await fetch("https://ef49-2003-6-13f3-90d9-3111-3492-4cf3-fc4d.ngrok-free.app/2/off");
+}
+
 const AnswerIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AnswerIntent';
     },
     handle(handlerInput) {
-        var alternative = handlerInput.requestEnvelope.request.intent;
-        var userAnswer = handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        var userInput= handlerInput.requestEnvelope.request.intent.slots.Query.value;
+        var anotha=handlerInput.requestEnvelope.request.intent;
         
-        if(userAnswer === alexaAnswer){
+        if(userInput===alexaAnswer){
             return handlerInput.responseBuilder
                 .speak("yeahya")
                 .reprompt()
                 .getResponse()
         }
         else{
+            onShit();
+            setTimeout(offShit,2000);
             return handlerInput.responseBuilder
-            .speak("wrong u dumb duck")
-            .reprompt()
-            .getResponse() 
+                .speak(`wrong u dumb duck. ${alexaAnswer}`)
+                .reprompt()
+                .getResponse()
         }
     }
 };
